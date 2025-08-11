@@ -23,6 +23,9 @@ func Help() {
 }
 
 func GetSize(path string) (string, error) {
+	if path == "" {
+		return "", errors.New("не указан путь")
+	}
 	info, err := os.Stat(path)
 	if err != nil {
 		return "", errors.New("не удалось прочитать путь к файлу или директории")

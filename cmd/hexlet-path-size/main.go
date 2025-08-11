@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello from Hexlet!")
+
 	cmd := &cli.Command{
 		Name:  "hexlet-path-size",
 		Usage: "print size of a file or directory;",
@@ -19,6 +19,8 @@ func main() {
 
 	if err := cmd.Run(context.Background(), os.Args); err != nil {
 		log.Fatal(err)
+		path := os.Args[1]
+		fmt.Println(goproject242.GetSize(path))
 	}
-	fmt.Println(goproject242.GetSize("/home/alex/hexlet-git"))
+
 }

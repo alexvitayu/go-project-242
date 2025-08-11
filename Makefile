@@ -5,3 +5,7 @@ build:
 # Запуск линтера
 run:
 	golangci-lint run
+
+# Запуск линтера
+test:
+	go test -v ./...
