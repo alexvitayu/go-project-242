@@ -6,9 +6,10 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 )
 
-func GetSize(path string, human bool) (string, error) {
+func GetSize(path string, human, all bool) (string, error) {
 	if path == "" {
 		return "", errors.New("не указан путь")
 	}
@@ -16,23 +17,27 @@ func GetSize(path string, human bool) (string, error) {
 	if err != nil {
 		return "", errors.New("не удалось прочитать путь к файлу или директории")
 	}
+	// If path is a file but not a directory
 	if !info.IsDir() {
 		i, err := os.Lstat(path)
 		if err != nil {
 			return "", errors.New("не удалось получить информацию о файле")
 		}
-		//return fmt.Sprintf("%vB\t%s", i.Size(), path), nil
 		return fmt.Sprintf("%v\t%s", FormatSize(i.Size(), human), path), nil
 	}
 
+	// If path is a directory not a file
 	var sum int64
 	files, err := os.ReadDir(path)
 	if err != nil {
 		return "", errors.New("не удалось прочитать директорию")
 	}
-	for _, file := range files {
-		if !file.IsDir() {
-			fP := filepath.Join(path, file.Name())
+	for i := 0; i < len(files); i++ {
+		if !all && strings.HasPrefix(files[i].Name(), ".") {
+			continue
+		}
+		if !files[i].IsDir() {
+			fP := filepath.Join(path, files[i].Name())
 			stat, err := os.Lstat(fP)
 			if err != nil {
 				return "", errors.New("не удалось получить информацию о файле")
@@ -40,7 +45,6 @@ func GetSize(path string, human bool) (string, error) {
 			sum += stat.Size()
 		}
 	}
-	//return fmt.Sprintf("%vB\t%s", sum, path), nil
 	return fmt.Sprintf("%v\t%s", FormatSize(sum, human), path), nil
 }
 

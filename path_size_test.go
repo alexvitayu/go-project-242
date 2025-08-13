@@ -14,6 +14,7 @@ var testCases = []struct {
 	expect    string
 	err       error
 	human     bool
+	all       bool
 }{
 	{
 		name:      "Path-file",
@@ -21,13 +22,15 @@ var testCases = []struct {
 		expect:    "23B\ttestdata/text.txt",
 		err:       nil,
 		human:     true,
+		all:       true,
 	},
 	{
 		name:      "Path-directory",
 		path_file: "testdata",
-		expect:    "8939B\ttestdata",
+		expect:    "9153B\ttestdata",
 		err:       nil,
 		human:     false,
+		all:       true,
 	},
 	{
 		name:      "Empty path",
@@ -35,6 +38,7 @@ var testCases = []struct {
 		expect:    "",
 		err:       errors.New("не указан путь"),
 		human:     true,
+		all:       true,
 	},
 	{
 		name:      "Wrong path",
@@ -42,13 +46,22 @@ var testCases = []struct {
 		expect:    "",
 		err:       errors.New("не удалось прочитать путь к файлу или директории"),
 		human:     true,
+		all:       true,
+	},
+	{
+		name:      "Without hidden files",
+		path_file: "testdata",
+		expect:    "8939B\ttestdata",
+		err:       nil,
+		human:     false,
+		all:       false,
 	},
 }
 
 func TestGetSize(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := GetSize(tc.path_file, tc.human)
+			got, err := GetSize(tc.path_file, tc.human, tc.all)
 			if tc.err != nil {
 				if err.Error() != tc.err.Error() {
 					t.Errorf("ожидали %v, получили %v", tc.err.Error(), err.Error())

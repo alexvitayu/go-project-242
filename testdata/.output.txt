@@ -1,0 +1,5 @@
+total 12
+drwxr-xr-x  2 alex alex 4096 июл 21 20:01 .
+drwxr-x--- 23 alex alex 4096 июл 21 13:49 ..
+-rw-rw-r--  1 alex alex    0 июл 21 20:01 output.txt
+-rw-rw-r--  1 alex alex   28 июл 21 19:41 text.txt
