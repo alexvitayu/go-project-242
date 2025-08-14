@@ -1,7 +1,7 @@
 package main
 
 import (
-	goproject242 "code"
+	"code"
 	"context"
 	"fmt"
 	"log"
@@ -11,10 +11,11 @@ import (
 )
 
 func main() {
+	fmt.Println("Hello from Hexlet!")
 	cmd := &cli.Command{
 		UseShortOptionHandling: true,
 		Name:                   "hexlet-path-size",
-		Usage:                  "print size of a file or directory;",
+		Usage:                  "print size of a file or directory; supports -r (recursive), -H (human-readable), -a (include hidden)",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "human",
@@ -40,11 +41,12 @@ func main() {
 			h := cmd.Bool("human")
 			a := cmd.Bool("all")
 			r := cmd.Bool("recursive")
-			size, err := goproject242.GetPathSize(path, r, h, a)
+			size, err := code.GetPathSize(path, r, h, a)
 			if err != nil {
 				log.Println(err.Error())
 			}
-			fmt.Println(size)
+			str := fmt.Sprintf("%v\t%s", size, path)
+			fmt.Println(str)
 			return nil
 		},
 	}

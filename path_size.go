@@ -1,4 +1,4 @@
-package goproject242
+package code
 
 import (
 	"errors"
@@ -18,7 +18,7 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("%w", err)
 	}
-	return fmt.Sprintf("%v\t%s", FormatSize(sum, human), path), nil
+	return fmt.Sprintf("%v", FormatSize(sum, human)), nil
 
 }
 
@@ -72,7 +72,7 @@ func FormatSize(size int64, human bool) string {
 		case len(str) <= 3:
 			return fmt.Sprintf("%vB", size)
 		case len(str) > 3 && len(str) <= 6:
-			return fmt.Sprintf("%.1fKB", float64(size)/math.Pow(10, 3))
+			return fmt.Sprintf("%.1fKB", float64(size)/1000)
 		case len(str) >= 7 && len(str) < 10:
 			return fmt.Sprintf("%.1fMB", float64(size)/math.Pow(10, 6))
 		case len(str) >= 10 && len(str) < 13:
