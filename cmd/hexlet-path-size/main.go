@@ -26,6 +26,11 @@ func main() {
 				Aliases: []string{"a"},
 				Value:   false,
 				Usage:   "include hidden files and directories"},
+			&cli.BoolFlag{
+				Name:    "recursive",
+				Aliases: []string{"r"},
+				Value:   false,
+				Usage:   "recursive size of directories"},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
 			var path string
@@ -34,7 +39,8 @@ func main() {
 			}
 			h := cmd.Bool("human")
 			a := cmd.Bool("all")
-			size, err := goproject242.GetSize(path, h, a)
+			r := cmd.Bool("recursive")
+			size, err := goproject242.GetPathSize(path, r, h, a)
 			if err != nil {
 				log.Println(err.Error())
 			}
