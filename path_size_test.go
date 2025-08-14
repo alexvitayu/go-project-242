@@ -1,4 +1,4 @@
-package goproject242
+package code
 
 import (
 	"errors"
@@ -20,7 +20,7 @@ var testCases = []struct {
 	{
 		name:      "Path-file",
 		path_file: "testdata/text.txt",
-		expect:    "23B\ttestdata/text.txt",
+		expect:    "23B",
 		err:       nil,
 		human:     true,
 		all:       true,
@@ -29,7 +29,7 @@ var testCases = []struct {
 	{
 		name:      "Path-directory",
 		path_file: "testdata",
-		expect:    "9153B\ttestdata",
+		expect:    "9153B",
 		err:       nil,
 		human:     false,
 		all:       true,
@@ -56,7 +56,7 @@ var testCases = []struct {
 	{
 		name:      "Without hidden files",
 		path_file: "testdata",
-		expect:    "8939B\ttestdata",
+		expect:    "8939B",
 		err:       nil,
 		human:     false,
 		all:       false,
@@ -65,7 +65,7 @@ var testCases = []struct {
 	{
 		name:      "Recursive",
 		path_file: "testdata",
-		expect:    "6947251B\ttestdata",
+		expect:    "6947251B",
 		err:       nil,
 		human:     false,
 		all:       true,
