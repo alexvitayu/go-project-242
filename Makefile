@@ -10,6 +10,6 @@ install: build
 lint:
 	golangci-lint run
 
-# Запуск линтера
+# Запуск тестов
 test:
 	go test -v ./...

@@ -113,7 +113,7 @@ var testCases2 = []struct {
 		name:   "HumanReadable",
 		size:   []int64{123, 10000, 999800, 11000000820},
 		human:  true,
-		expect: []string{"123B", "10.0KB", "999.8KB", "11.0GB"},
+		expect: []string{"123B", "9.8KB", "976.4KB", "10.2GB"},
 	},
 }
 

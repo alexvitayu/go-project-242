@@ -3,11 +3,19 @@ package code
 import (
 	"errors"
 	"fmt"
-	"math"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
+)
+
+const (
+	KB = 1024
+	MB = KB * 1024
+	GB = MB * 1024
+	TB = GB * 1024
+	PB = TB * 1024
+	EB = PB * 1024
 )
 
 func GetPathSize(path string, recursive, human, all bool) (string, error) {
@@ -19,21 +27,16 @@ func GetPathSize(path string, recursive, human, all bool) (string, error) {
 		return "", fmt.Errorf("%w", err)
 	}
 	return fmt.Sprintf("%v", FormatSize(sum, human)), nil
-
 }
 
 func GetSize(path string, recursive, human, all bool) (int64, error) {
-	info, err := os.Stat(path)
+	info, err := os.Lstat(path)
 	if err != nil {
 		return 0, errors.New("не удалось прочитать путь к файлу или директории")
 	}
 	// If path is a file but not a directory
 	if !info.IsDir() {
-		i, err := os.Lstat(path)
-		if err != nil {
-			return 0, errors.New("не удалось получить информацию о файле")
-		}
-		return i.Size(), nil
+		return info.Size(), nil
 	}
 
 	// If path is a directory not a file
@@ -72,17 +75,17 @@ func FormatSize(size int64, human bool) string {
 		case len(str) <= 3:
 			return fmt.Sprintf("%vB", size)
 		case len(str) > 3 && len(str) <= 6:
-			return fmt.Sprintf("%.1fKB", float64(size)/1000)
+			return fmt.Sprintf("%.1fKB", float64(size)/KB)
 		case len(str) >= 7 && len(str) < 10:
-			return fmt.Sprintf("%.1fMB", float64(size)/math.Pow(10, 6))
+			return fmt.Sprintf("%.1fMB", float64(size)/MB)
 		case len(str) >= 10 && len(str) < 13:
-			return fmt.Sprintf("%.1fGB", float64(size)/math.Pow(10, 9))
+			return fmt.Sprintf("%.1fGB", float64(size)/GB)
 		case len(str) >= 13 && len(str) < 16:
-			return fmt.Sprintf("%.1fTB", float64(size)/math.Pow(10, 12))
+			return fmt.Sprintf("%.1fTB", float64(size)/TB)
 		case len(str) >= 16 && len(str) < 19:
-			return fmt.Sprintf("%.1fPB", float64(size)/math.Pow(10, 15))
+			return fmt.Sprintf("%.1fPB", float64(size)/PB)
 		default:
-			return fmt.Sprintf("%.1fEB", float64(size)/math.Pow(10, 18))
+			return fmt.Sprintf("%.1fEB", float64(size)/EB)
 		}
 	}
 	return fmt.Sprintf("%vB", size)

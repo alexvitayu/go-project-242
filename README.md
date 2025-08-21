@@ -12,28 +12,36 @@ This is a disk size analysis program that allows you to get information about oc
 - golangci-lint
 
 ## Build and Setup (for global use)
-- git clone https://github.com/alexvitayu/go-project-242.git
-
-- cd go-project-242  
-
-- make build  
-
+```ch
+git clone https://github.com/alexvitayu/go-project-242.git
+```
+```ch
+cd go-project-242
+``` 
+```ch
+make build  
+```
 ## Run linter
-- make lint
-
+```ch
+make lint
+```
 ## Run tests
-- make test
-
+```ch
+make test
+```
 ## Install
 ### for make install make sure that you have GOBIN set up in your PATH
 ### to discover this just run 'echo $PATH'
-- make install
-
+```ch
+make install
+```
 ## Help
-- hexlet-path-size -h --help
-
+```ch
+hexlet-path-size -h --help
+```
 ## Run the application from the terminal
-- hexlet-path-size
-
+```ch
+hexlet-path-size
+```
 ## Follow the link to watch how to install and use this application:
 https://asciinema.org/a/uNqXjcIaNnYQVZGDtlmRriGOx

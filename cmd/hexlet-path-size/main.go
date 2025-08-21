@@ -43,7 +43,7 @@ func main() {
 			r := cmd.Bool("recursive")
 			size, err := code.GetPathSize(path, r, h, a)
 			if err != nil {
-				log.Println(err.Error())
+				log.Fatalf("Program failed to get path for %s: %v", path, err)
 			}
 			str := fmt.Sprintf("%v\t%s", size, path)
 			fmt.Println(str)
